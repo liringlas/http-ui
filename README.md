@@ -31,7 +31,7 @@ A modern, lightweight HTTP client for testing and debugging APIs. Built with Nex
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/http-ui.git
+   git clone https://github.com/liringlas/http-ui.git
    cd http-ui
    ```
 
