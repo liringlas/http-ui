@@ -7,6 +7,10 @@ A modern, lightweight HTTP client for testing and debugging APIs. Built with Nex
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
+## Demo
+
+![Demo](demo.webm)
+
 ## Features
 
 - **Request Builder** - Support for GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS methods
