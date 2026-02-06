@@ -9,7 +9,7 @@ A modern, lightweight HTTP client for testing and debugging APIs. Built with Nex
 
 ## Demo
 
-![Demo](demo.webm)
+![Demo](demo.mp4)
 
 ## Features
 
