@@ -13,22 +13,24 @@ A modern, lightweight HTTP client for testing and debugging APIs. Built with Nex
 
 ## Features
 
-- **Request Builder** - Support for GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS methods
-- **Collections** - Organize requests into collections and folders
-- **Environment Variables** - Use `{{variables}}` in URLs, headers, and body with support for global variables
-- **Authentication** - Built-in support for Bearer tokens, Basic auth, and API keys
-- **Request History** - Automatically tracks all executed requests
-- **Import/Export** - Share collections as JSON files
-- **Keyboard Shortcuts** - Save with `Cmd+S` / `Ctrl+S`
-- **Dark Mode** - Easy on the eyes
-- **Self-Hosted** - Your data stays on your machine
+- **Request Builder** — support for GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS methods with query parameters, headers, and multiple body types (JSON, form-data, x-www-form-urlencoded, raw text)
+- **Tabbed Interface** — work with multiple requests simultaneously, with dirty-state tracking for unsaved changes
+- **Collections** — organize requests into collections and nested folders with drag-and-drop reordering
+- **Environment Variables** — define global and environment-scoped variables, use `{{variables}}` in URLs, headers, body, and auth fields
+- **Authentication** — built-in support for Bearer tokens, Basic auth, and API keys (header or query parameter)
+- **Response Viewer** — color-coded status codes, response time, size, syntax-highlighted body (JSON/XML/HTML), response headers, copy-to-clipboard, and download
+- **Request History** — automatically tracks all executed requests
+- **Import/Export** — share collections as JSON files
+- **Resizable Panels** — adjustable sidebar, request, and response panel sizes
+- **Dark Mode** — toggle between light and dark themes
+- **Self-Hosted** — your data stays on your machine in a local SQLite database
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
-- Yarn (recommended) or npm
+- npm (Node Package Manager)
 
 ### Installation
 
@@ -42,20 +44,20 @@ A modern, lightweight HTTP client for testing and debugging APIs. Built with Nex
 2. Install dependencies:
 
    ```bash
-   yarn install
+   npm install
    ```
 
 3. Set up the database:
 
    ```bash
-   yarn prisma generate
-   yarn prisma db push
+   npx prisma generate
+   npx prisma db push
    ```
 
 4. Start the development server:
 
    ```bash
-   yarn dev
+   npm run dev
    ```
 
 5. Open [http://localhost:3001](http://localhost:3001) in your browser.
@@ -70,26 +72,37 @@ A modern, lightweight HTTP client for testing and debugging APIs. Built with Nex
 ## Tech Stack
 
 - **Framework**: [Next.js 16](https://nextjs.org/) with App Router
-- **UI**: [React 19](https://react.dev/), [Tailwind CSS](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/)
+- **UI**: [React 19](https://react.dev/), [Tailwind CSS 4](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/), [shadcn/ui](https://ui.shadcn.com/), [Lucide Icons](https://lucide.dev/)
 - **State**: [Zustand](https://zustand-demo.pmnd.rs/) (client), [TanStack Query](https://tanstack.com/query) (server)
 - **Database**: [SQLite](https://www.sqlite.org/) with [Prisma](https://www.prisma.io/)
 - **Editor**: [Monaco Editor](https://microsoft.github.io/monaco-editor/)
+- **DnD**: [@dnd-kit](https://dndkit.com/) for drag-and-drop
+- **Layout**: [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels)
+- **Validation**: [Zod](https://zod.dev/)
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── api/           # API routes for CRUD operations
-│   └── page.tsx       # Main application page
+│   ├── api/              # API routes (collections, folders, requests,
+│   │                     #   environments, variables, history, execute)
+│   ├── layout.tsx        # Root layout with providers
+│   ├── page.tsx          # Main application page
+│   └── globals.css       # Global styles & CSS variables
 ├── components/
-│   ├── collections/   # Collection tree sidebar
-│   ├── request-builder/  # URL bar, headers, body editors
-│   ├── response-viewer/  # Response display
-│   └── ui/            # Reusable UI components
-├── hooks/             # React Query hooks
-├── store/             # Zustand store
-└── types/             # TypeScript types
+│   ├── layout/           # App shell, header, sidebar, tab bar
+│   ├── collections/      # Collection tree sidebar
+│   ├── history/          # Request history list
+│   ├── environments/     # Environment manager & switcher
+│   ├── request-builder/  # URL bar, headers, body, auth editors
+│   ├── response-viewer/  # Response display & JSON viewer
+│   ├── ui/               # Reusable UI components (shadcn/ui)
+│   └── providers.tsx     # TanStack Query & theme providers
+├── hooks/                # React Query hooks (collections, environments, history, execute)
+├── store/                # Zustand store (tabs, active request, UI state)
+├── lib/                  # Prisma client, HTTP client, variable resolver, utilities
+└── types/                # TypeScript type definitions
 ```
 
 ## Contributing
