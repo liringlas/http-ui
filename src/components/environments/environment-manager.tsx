@@ -1,19 +1,18 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Plus, Trash2, Edit2, Check, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { useState } from "react";
+import { Plus, Trash2, Edit2, Check, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useEnvironments,
   useCreateEnvironment,
@@ -23,30 +22,30 @@ import {
   useCreateVariable,
   useDeleteVariable,
   useUpdateVariable,
-} from '@/hooks/use-environments'
-import { Variable } from '@/types'
+} from "@/hooks/use-environments";
+import { Variable } from "@/types";
 
 export function EnvironmentManager() {
-  const [open, setOpen] = useState(false)
-  const [newEnvName, setNewEnvName] = useState('')
-  const [showNewEnv, setShowNewEnv] = useState(false)
-  const { data: environments = [] } = useEnvironments()
-  const { data: globalVariables = [] } = useVariables()
-  const createEnvironment = useCreateEnvironment()
-  const deleteEnvironment = useDeleteEnvironment()
+  const [open, setOpen] = useState(false);
+  const [newEnvName, setNewEnvName] = useState("");
+  const [showNewEnv, setShowNewEnv] = useState(false);
+  const { data: environments = [] } = useEnvironments();
+  const { data: globalVariables = [] } = useVariables();
+  const createEnvironment = useCreateEnvironment();
+  const deleteEnvironment = useDeleteEnvironment();
 
   const handleCreateEnvironment = () => {
     if (newEnvName.trim()) {
-      createEnvironment.mutate({ name: newEnvName.trim() })
-      setNewEnvName('')
-      setShowNewEnv(false)
+      createEnvironment.mutate({ name: newEnvName.trim() });
+      setNewEnvName("");
+      setShowNewEnv(false);
     }
-  }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="cursor-pointer">
           Manage Environments
         </Button>
       </DialogTrigger>
@@ -83,7 +82,9 @@ export function EnvironmentManager() {
                     placeholder="Environment name"
                     value={newEnvName}
                     onChange={(e) => setNewEnvName(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleCreateEnvironment()}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && handleCreateEnvironment()
+                    }
                     autoFocus
                   />
                   <Button size="sm" onClick={handleCreateEnvironment}>
@@ -93,8 +94,8 @@ export function EnvironmentManager() {
                     size="sm"
                     variant="ghost"
                     onClick={() => {
-                      setShowNewEnv(false)
-                      setNewEnvName('')
+                      setShowNewEnv(false);
+                      setNewEnvName("");
                     }}
                   >
                     <X className="h-4 w-4" />
@@ -122,26 +123,29 @@ export function EnvironmentManager() {
         </Tabs>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 function EnvironmentCard({
   environment,
   onDelete,
 }: {
-  environment: { id: string; name: string; variables: Variable[] }
-  onDelete: () => void
+  environment: { id: string; name: string; variables: Variable[] };
+  onDelete: () => void;
 }) {
-  const [editing, setEditing] = useState(false)
-  const [name, setName] = useState(environment.name)
-  const updateEnvironment = useUpdateEnvironment()
+  const [editing, setEditing] = useState(false);
+  const [name, setName] = useState(environment.name);
+  const updateEnvironment = useUpdateEnvironment();
 
   const handleSave = () => {
     if (name.trim() && name !== environment.name) {
-      updateEnvironment.mutate({ id: environment.id, data: { name: name.trim() } })
+      updateEnvironment.mutate({
+        id: environment.id,
+        data: { name: name.trim() },
+      });
     }
-    setEditing(false)
-  }
+    setEditing(false);
+  };
 
   return (
     <div className="border rounded-lg p-4 space-y-4">
@@ -151,7 +155,7 @@ function EnvironmentCard({
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSave()}
+              onKeyDown={(e) => e.key === "Enter" && handleSave()}
               autoFocus
             />
             <Button size="sm" onClick={handleSave}>
@@ -161,8 +165,8 @@ function EnvironmentCard({
               size="sm"
               variant="ghost"
               onClick={() => {
-                setEditing(false)
-                setName(environment.name)
+                setEditing(false);
+                setName(environment.name);
               }}
             >
               <X className="h-4 w-4" />
@@ -186,21 +190,21 @@ function EnvironmentCard({
         environmentId={environment.id}
       />
     </div>
-  )
+  );
 }
 
 function VariableEditor({
   variables,
   environmentId,
 }: {
-  variables: Variable[]
-  environmentId: string | null
+  variables: Variable[];
+  environmentId: string | null;
 }) {
-  const [newKey, setNewKey] = useState('')
-  const [newValue, setNewValue] = useState('')
-  const createVariable = useCreateVariable()
-  const deleteVariable = useDeleteVariable()
-  const updateVariable = useUpdateVariable()
+  const [newKey, setNewKey] = useState("");
+  const [newValue, setNewValue] = useState("");
+  const createVariable = useCreateVariable();
+  const deleteVariable = useDeleteVariable();
+  const updateVariable = useUpdateVariable();
 
   const handleAdd = () => {
     if (newKey.trim()) {
@@ -208,11 +212,11 @@ function VariableEditor({
         key: newKey.trim(),
         value: newValue,
         environmentId: environmentId || undefined,
-      })
-      setNewKey('')
-      setNewValue('')
+      });
+      setNewKey("");
+      setNewValue("");
     }
-  }
+  };
 
   return (
     <div className="space-y-2">
@@ -241,14 +245,14 @@ function VariableEditor({
           value={newValue}
           onChange={(e) => setNewValue(e.target.value)}
           className="flex-1"
-          onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
+          onKeyDown={(e) => e.key === "Enter" && handleAdd()}
         />
         <Button size="sm" onClick={handleAdd} disabled={!newKey.trim()}>
           <Plus className="h-4 w-4" />
         </Button>
       </div>
     </div>
-  )
+  );
 }
 
 function VariableRow({
@@ -256,18 +260,18 @@ function VariableRow({
   onUpdate,
   onDelete,
 }: {
-  variable: Variable
-  onUpdate: (data: { key?: string; value?: string }) => void
-  onDelete: () => void
+  variable: Variable;
+  onUpdate: (data: { key?: string; value?: string }) => void;
+  onDelete: () => void;
 }) {
-  const [key, setKey] = useState(variable.key)
-  const [value, setValue] = useState(variable.value)
+  const [key, setKey] = useState(variable.key);
+  const [value, setValue] = useState(variable.value);
 
   const handleBlur = () => {
     if (key !== variable.key || value !== variable.value) {
-      onUpdate({ key, value })
+      onUpdate({ key, value });
     }
-  }
+  };
 
   return (
     <div className="flex items-center gap-2">
@@ -287,5 +291,5 @@ function VariableRow({
         <Trash2 className="h-4 w-4" />
       </Button>
     </div>
-  )
+  );
 }

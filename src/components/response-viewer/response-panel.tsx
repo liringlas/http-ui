@@ -98,7 +98,7 @@ export function ResponsePanel({ tab }: ResponsePanelProps) {
         </div>
       </div>
 
-      <Tabs defaultValue="body" className="flex flex-1 flex-col">
+      <Tabs defaultValue="body" className="flex min-h-0 flex-1 flex-col">
         <TabsList className="w-full justify-start rounded-none border-b bg-transparent px-4 h-auto py-0">
           <TabsTrigger
             value="body"
@@ -121,7 +121,7 @@ export function ResponsePanel({ tab }: ResponsePanelProps) {
           <JsonViewer value={response.body} language={detectedLanguage} />
         </TabsContent>
 
-        <TabsContent value="headers" className="flex-1 m-0">
+        <TabsContent value="headers" className="flex-1 m-0 overflow-hidden">
           <ScrollArea className="h-full">
             <div className="p-4">
               <table className="w-full">

@@ -25,7 +25,7 @@ export function RequestPanel({ tab }: RequestPanelProps) {
   return (
     <div className="flex h-full flex-col">
       <UrlBar tab={tab} onSend={handleSend} />
-      <Tabs defaultValue="params" className="flex flex-1 flex-col">
+      <Tabs defaultValue="params" className="flex min-h-0 flex-1 flex-col">
         <TabsList className="w-full justify-start rounded-none border-b bg-transparent px-4 h-auto py-0">
           <TabsTrigger
             value="params"
@@ -63,7 +63,7 @@ export function RequestPanel({ tab }: RequestPanelProps) {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="params" className="flex-1 m-0">
+        <TabsContent value="params" className="flex-1 m-0 overflow-hidden">
           <ScrollArea className="h-full">
             <KeyValueEditor
               pairs={tab.request.queryParams}
@@ -74,7 +74,7 @@ export function RequestPanel({ tab }: RequestPanelProps) {
           </ScrollArea>
         </TabsContent>
 
-        <TabsContent value="headers" className="flex-1 m-0">
+        <TabsContent value="headers" className="flex-1 m-0 overflow-hidden">
           <ScrollArea className="h-full">
             <KeyValueEditor
               pairs={tab.request.headers}
@@ -89,7 +89,7 @@ export function RequestPanel({ tab }: RequestPanelProps) {
           <BodyEditor tab={tab} />
         </TabsContent>
 
-        <TabsContent value="auth" className="flex-1 m-0">
+        <TabsContent value="auth" className="flex-1 m-0 overflow-hidden">
           <ScrollArea className="h-full">
             <AuthEditor tab={tab} />
           </ScrollArea>

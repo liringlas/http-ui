@@ -37,9 +37,9 @@ export function TabBar() {
   }
 
   return (
-    <div className="flex h-10 items-center border-b bg-muted/30">
-      <ScrollArea className="flex-1">
-        <div className="flex">
+    <div className="flex h-10 items-center border-b bg-muted/30 overflow-hidden">
+      <ScrollArea className="flex-1 overflow-hidden">
+        <div className="flex w-max">
           {tabs.map((tab) => (
             <div
               key={tab.id}

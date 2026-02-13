@@ -1,34 +1,40 @@
-'use client'
+"use client";
 
-import { Plus, Settings, Zap } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useStore } from '@/store'
-import { useEnvironments } from '@/hooks/use-environments'
-import { EnvironmentManager } from '@/components/environments/environment-manager'
+} from "@/components/ui/select";
+import { useStore } from "@/store";
+import { useEnvironments } from "@/hooks/use-environments";
+import { EnvironmentManager } from "@/components/environments/environment-manager";
+import Image from "next/image";
+import ImageLogo from "public/image_http_ui_logo.png";
 
 export function Header() {
-  const { addTab, activeEnvironmentId, setActiveEnvironment } = useStore()
-  const { data: environments = [] } = useEnvironments()
+  const { addTab, activeEnvironmentId, setActiveEnvironment } = useStore();
+  const { data: environments = [] } = useEnvironments();
 
   return (
     <header className="flex h-12 items-center justify-between border-b bg-background px-4">
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <Zap className="h-5 w-5 text-primary" />
-          <span className="font-semibold">HTTP UI</span>
+          <Image
+            src={ImageLogo}
+            alt="HTTP UI Logo"
+            width={753 / 6}
+            height={248 / 6}
+          />
         </div>
         <Button
           variant="outline"
           size="sm"
           onClick={() => addTab()}
-          className="gap-2"
+          className="gap-2 h-8 cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           New Request
@@ -37,9 +43,9 @@ export function Header() {
 
       <div className="flex items-center gap-3">
         <Select
-          value={activeEnvironmentId || 'none'}
+          value={activeEnvironmentId || "none"}
           onValueChange={(value) =>
-            setActiveEnvironment(value === 'none' ? null : value)
+            setActiveEnvironment(value === "none" ? null : value)
           }
         >
           <SelectTrigger className="w-[180px]">
@@ -56,11 +62,7 @@ export function Header() {
         </Select>
 
         <EnvironmentManager />
-
-        <Button variant="ghost" size="icon">
-          <Settings className="h-4 w-4" />
-        </Button>
       </div>
     </header>
-  )
+  );
 }
